@@ -1,0 +1,243 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "example",
+    "version": "",
+    "description": "sample of express-swagger-apib."
+  },
+  "host": "localhost:3001",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/swagger.json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "swagger": "",
+                "info": {},
+                "host": "",
+                "basePath": "",
+                "schemas": [],
+                "paths": {},
+                "definitions": {}
+              }
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "swagger": {
+                  "type": "string"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "host": {
+                  "type": "string"
+                },
+                "basePath": {
+                  "type": "string"
+                },
+                "schemas": {},
+                "paths": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "definitions": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "required": [
+                "swagger",
+                "info",
+                "host",
+                "basePath",
+                "paths",
+                "definitions"
+              ]
+            }
+          }
+        },
+        "summary": "show",
+        "description": "* swagger.jsonを取得する。",
+        "tags": [
+          "Swagger"
+        ],
+        "parameters": [],
+        "operationId": "swaggershow",
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/users": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Created",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "accessToken": "f58ba22059f5a8aa8f346e0f40987adab326041fac99029c909bef2c6300821a"
+              }
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "accessToken": {
+                  "type": "string",
+                  "description": "アクセストークン"
+                }
+              },
+              "required": [
+                "accessToken"
+              ]
+            }
+          }
+        },
+        "summary": "create",
+        "description": "#### 処理概要\n\n* ユーザ情報を新しく登録する。\n\n* 登録に成功した場合、アクセストークンを返す。",
+        "tags": [
+          "ユーザ"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "description": "メールアドレス（format: email）"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "パスワード（pattern: ^[0-9A-Za-z]{6,16}$）"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "operationId": "usercreate",
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "user": {
+                  "name": "wada",
+                  "age": 18,
+                  "type": "0",
+                  "profile": {},
+                  "registered": "2015-06-11T08:40:51Z",
+                  "favorites": [
+                    "http://dev.classmethod.jp/"
+                  ]
+                },
+                "messageHistory": [
+                  {
+                    "id": 22345,
+                    "title": "今日の献立"
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "number"
+                    },
+                    "type": {
+                      "type": "number",
+                      "enum": [
+                        0,
+                        1
+                      ],
+                      "description": "ユーザ種別(0:無料ユーザ, 1:有料ユーザ)"
+                    },
+                    "profile": {
+                      "type": "object",
+                      "properties": {}
+                    },
+                    "registered": {
+                      "type": "string"
+                    },
+                    "favorites": {
+                      "type": "array",
+                      "description": "- (10)",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "age",
+                    "type",
+                    "profile",
+                    "registered"
+                  ]
+                },
+                "messageHistory": {
+                  "type": "array",
+                  "items": {}
+                }
+              },
+              "required": [
+                "user"
+              ]
+            }
+          }
+        },
+        "summary": "show",
+        "description": "#### 処理概要\n\n* 指定した会員の情報を返す。\n\n* userIdは必須。",
+        "tags": [
+          "ユーザ"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ユーザID",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "operationId": "usershow",
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "swagger": {},
+    "user": {}
+  }
+}
